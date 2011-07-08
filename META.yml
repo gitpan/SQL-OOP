@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               SQL-OOP
-version:            0.13
+version:            0.14
 abstract:           Yet another SQL Generator
 author:
     - Sugama Keita <sugama@jamadam.com>
@@ -10,6 +10,7 @@ configure_requires:
     ExtUtils::MakeMaker:  0
 build_requires:
     Class::Data::Inheritable:  0.08
+    Test::Class:          0.36
     Test::More:           0.47
     Test::UseAllModules:  0.10
 requires:  {}
