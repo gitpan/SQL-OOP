@@ -5,7 +5,7 @@ use Scalar::Util qw(blessed);
 use base qw(Class::Data::Inheritable);
 use SQL::OOP::Base;
 use 5.005;
-our $VERSION = '0.14';
+our $VERSION = '0.15';
 
     sub new {
         my $class = shift;
@@ -131,8 +131,8 @@ SQL::OOP::Array.
 
 =head2 Code reference for arguments
 
-All new constructors, append methods for array subclsses, and set methods for
-command subclasses are capable of code refs for arguments instead of string or
+All new constructors, append methods for array sub classes, and set methods for
+command sub classes are capable of code refs for arguments instead of string or
 objects so that you can encapsulate temporary things inside of it.
     
     $select->set(

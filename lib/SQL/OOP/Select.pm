@@ -125,7 +125,7 @@ SQL::OOP::Select
     );
     
     my $where = SQL::OOP::Where->new();
-    $where->cmp_nested('=', q{some_field}, $select); # some_filed = (SELECT ..)
+    $where->cmp('=', q{some_field}, $select); # some_filed = (SELECT ..)
     
     my $sql  = $select->to_string;
     my @bind = $select->bind;
@@ -133,10 +133,6 @@ SQL::OOP::Select
 =head1 DESCRIPTION
 
 SQL::OOP::Select class represents Select commands. 
-
-=head1 SQL::OOP::Select CLASS
-
-This class represents SQL SELECT command
 
 =head2 SQL::OOP::Select->new(%clause)
 
