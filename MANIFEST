@@ -22,6 +22,7 @@ t/SQL_OOP_ComprehensiveTest.t
 t/SQL_OOP_ComprehensiveTest2.t
 t/SQL_OOP_Dataset.t
 t/SQL_OOP_Dataset2.t
+t/SQL_OOP_Dataset3.t
 t/SQL_OOP_Delete.t
 t/SQL_OOP_IdentifierTest.t
 t/SQL_OOP_InsertTest.t
