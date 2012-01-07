@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               SQL-OOP
-version:            0.19
+version:            0.20
 abstract:           Yet another SQL Generator
 author:
     - Sugama Keita <sugama@jamadam.com>
