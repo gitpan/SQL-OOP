@@ -5,59 +5,55 @@ package SQL::OOP::ID;
 use strict;
 use warnings;
 use base qw(SQL::OOP::Array);
-    
-    ### ---
-    ### Constructor
-    ### ---
-    sub new {
-        
-        my ($class, @array) = @_;
-        return $class->SUPER::new(@array)->set_sepa('.');
-    }
-    
-    ### ---
-    ### Append ID
-    ### ---
-    sub append {
-        
-        my ($self, @array) = @_;
-        $self->_init_gen;
-        if (ref $array[0] && ref $array[0] eq 'ARRAY') {
-            @array = @{$array[0]};
-        }
-        for my $elem (@array) {
-            if ($elem) {
-                push(@{$self->{array}}, SQL::OOP::ID::Parts->new($elem));
-            }
-        }
-        return $self;
-    }
-    
-    ### ---
-    ### "field AS foo" syntax
-    ### ---
-    sub as {
-        
-        my ($self, $as) = (@_);
-        $self->{as} = $as;
-        return $self;
-    }
-    
-    ### ---
-    ### Generate SQL snippet
-    ### ---
-    sub generate {
-        
-        my $self = shift;
-        my @array = map {$_->to_string} @{$self->{array}};
-        $self->{gen} = join($self->{sepa}, grep {$_} @array);
 
-        if ($self->{as}) {
-            $self->{gen} .= ' AS '. $self->quote($self->{as});
-        }
-        
-        return $self;
+### ---
+### Constructor
+### ---
+sub new {
+    my ($class, @array) = @_;
+    return $class->SUPER::new(@array)->set_sepa('.');
+}
+
+### ---
+### Append ID
+### ---
+sub append {
+    my ($self, @array) = @_;
+    $self->_init_gen;
+    if (ref $array[0] && ref $array[0] eq 'ARRAY') {
+        @array = @{$array[0]};
     }
+    for my $elem (@array) {
+        if ($elem) {
+            push(@{$self->{array}}, SQL::OOP::ID::Parts->new($elem));
+        }
+    }
+    return $self;
+}
+
+### ---
+### "field AS foo" syntax
+### ---
+sub as {
+    my ($self, $as) = (@_);
+    $self->{as} = $as;
+    return $self;
+}
+
+### ---
+### Generate SQL snippet
+### ---
+sub generate {
+    my $self = shift;
+    my @array = map {$_->to_string} @{$self->{array}};
+    $self->{gen} = join($self->{sepa}, grep {$_} @array);
+
+    if ($self->{as}) {
+        $self->{gen} .= ' AS '. $self->quote($self->{as});
+    }
+    
+    return $self;
+}
 
 ### ---
 ### Class for Identifier such as table, field schema
@@ -66,16 +62,15 @@ package SQL::OOP::ID::Parts;
 use strict;
 use warnings;
 use base qw(SQL::OOP::Base);
-    
-    ### ---
-    ### Generate SQL snippet
-    ### ---
-    sub generate {
-        
-        my $self = shift;
-        $self->SUPER::generate(@_);
-        $self->{gen} = $self->quote($self->{gen});
-    }
+
+### ---
+### Generate SQL snippet
+### ---
+sub generate {
+    my $self = shift;
+    $self->SUPER::generate(@_);
+    $self->{gen} = $self->quote($self->{gen});
+}
 
 1;
 
@@ -130,16 +125,5 @@ don't have to call it directly.
 This class is for internal use.
 
 =head1 SEE ALSO
-
-=head1 AUTHOR
-
-Sugama Keita, E<lt>sugama@jamadam.comE<gt>
-
-=head1 COPYRIGHT AND LICENSE
-
-Copyright (C) 2011 by Sugama Keita.
-
-This program is free software; you can redistribute it and/or
-modify it under the same terms as Perl itself.
 
 =cut

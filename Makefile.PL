@@ -11,10 +11,9 @@ my %params = (
     PREREQ_PM     => {
     },
     BUILD_REQUIRES => {
-		'Test::Class' => '0.36',
+        'Test::Class'         => '0.36',
         'Test::More'          => '0.47',
         'Test::UseAllModules' => '0.10',
-		'Class::Data::Inheritable'=> '0.08',
     },
     META_MERGE => {
         resources => {

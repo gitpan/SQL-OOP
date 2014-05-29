@@ -5,68 +5,63 @@ use SQL::OOP::Base;
 use SQL::OOP::Where;
 use SQL::OOP::Dataset;
 use base qw(SQL::OOP::Command);
-	
-	sub ARG_TABLE()		{1} ## no critic
-	sub ARG_DATASET()	{2} ## no critic
-	sub ARG_FROM()		{3} ## no critic
-	sub ARG_WHERE()		{4} ## no critic
-	
-	### ---
-	### Get Names of set arguments in array ref
-	### ---
-	sub KEYS {
-		
-		return [ARG_TABLE, ARG_DATASET, ARG_FROM, ARG_WHERE];
-	}
-	
-	### ---
-	### Get prefixes for each clause in hash ref
-	### ---
-	sub PREFIXES {
-		
-		return {
-			ARG_TABLE()	 	=> 'UPDATE',
-			ARG_DATASET() 	=> 'SET',
-			ARG_FROM() 		=> 'FROM',
-			ARG_WHERE() 	=> 'WHERE',
-		}
-	}
-	
-	### ---
-	### Constructor
-	### ---
-	sub new {
-		
-		my ($class, %hash) = @_;
-		return $class->SUPER::new(%hash);
-	}
-	
-	### ---
-	### Set elements
-	### ---
-	sub set {
-		
-		my ($class, %hash) = @_;
-		return $class->SUPER::set(%hash);
-	}
-	
-	### ---
-	### Get SQL snippet
-	### ---
-	sub to_string {
-		
-		my ($self) = @_;
-		$self->{array}->[1]->generate(SQL::OOP::Dataset->MODE_UPDATE);
-		return shift->SUPER::to_string(@_);
-	}
-	
-	### ---
-	### Get binded values in array
-	### ---
-	sub bind {
-		
-		return shift->SUPER::bind(@_);
-	}
+
+sub ARG_TABLE()     {1} ## no critic
+sub ARG_DATASET()   {2} ## no critic
+sub ARG_FROM()      {3} ## no critic
+sub ARG_WHERE()     {4} ## no critic
+
+### ---
+### Get Names of set arguments in array ref
+### ---
+sub KEYS {
+    return [ARG_TABLE, ARG_DATASET, ARG_FROM, ARG_WHERE];
+}
+
+### ---
+### Get prefixes for each clause in hash ref
+### ---
+sub PREFIXES {
+    return {
+        ARG_TABLE()     => 'UPDATE',
+        ARG_DATASET()   => 'SET',
+        ARG_FROM()      => 'FROM',
+        ARG_WHERE()     => 'WHERE',
+    }
+}
+
+### ---
+### Constructor
+### ---
+sub new {
+    my ($class, %hash) = @_;
+    return $class->SUPER::new(%hash);
+}
+
+### ---
+### Set elements
+### ---
+sub set {
+    my ($class, %hash) = @_;
+    return $class->SUPER::set(%hash);
+}
+
+### ---
+### Get SQL snippet
+### ---
+sub to_string {
+    my ($self) = @_;
+    local $SQL::OOP::Base::quote_char = $self->quote_char;
+    $self->{array}->[1]->generate(SQL::OOP::Dataset->MODE_UPDATE);
+    return shift->SUPER::to_string(@_);
+}
+
+### ---
+### Get binded values in array
+### ---
+sub bind {
+    return shift->SUPER::bind(@_);
+}
 
 1;
 
@@ -90,7 +85,7 @@ SQL::OOP::Update
     # reset clauses using objects
     $update->set(
         $select->ARG_TABLE      => SQL::OOP::ID->new('some_table'),
-        $update->ARG_DATASET    => SQL::OOP::Dataset->new(%data),
+        $update->ARG_DATASET    => SQL::OOP::Dataset->new(@data),
         $select->ARG_WHERE      => $where->cmp('=', "some_fileld", 'value')
     );
     my $sql  = $update->to_string;
@@ -142,15 +137,6 @@ argument key for FROM clause(=3)
 
 argument key for WHERE clause(=4)
 
-=head1 AUTHOR
-
-Sugama Keita, E<lt>sugama@jamadam.comE<gt>
-
-=head1 COPYRIGHT AND LICENSE
-
-Copyright (C) 2011 by Sugama Keita.
-
-This program is free software; you can redistribute it and/or
-modify it under the same terms as Perl itself.
+=head1 SEE ALSO
 
 =cut

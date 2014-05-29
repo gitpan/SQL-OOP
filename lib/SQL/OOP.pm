@@ -2,26 +2,25 @@ package SQL::OOP;
 use strict;
 use warnings;
 use Scalar::Util qw(blessed);
-use base qw(Class::Data::Inheritable);
 use SQL::OOP::Base;
 use 5.005;
-our $VERSION = '0.20';
+our $VERSION = '0.21';
 
-    sub new {
-        my $class = shift;
-        return SQL::OOP::Base->new(@_);
-    }
-    
-    sub quote_char {
-        my $class = shift;
-        return SQL::OOP::Base->quote_char(@_);
-    }
-    
-    sub escape_code_ref {
-        my $class = shift;
-        return SQL::OOP::Base->escape_code_ref(@_);
-    }
-    
+sub new {
+    my $class = shift;
+    return SQL::OOP::Base->new(@_);
+}
+
+sub quote_char {
+    my $class = shift;
+    return SQL::OOP::Base->quote_char(@_);
+}
+
+sub escape_code_ref {
+    my $class = shift;
+    return SQL::OOP::Base->escape_code_ref(@_);
+}
+
 1;
 
 __END__
@@ -264,7 +263,7 @@ Sugama Keita, E<lt>sugama@jamadam.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2011 by Sugama Keita.
+Copyright (C) 2014 by Jamadam.
 
 This program is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.
